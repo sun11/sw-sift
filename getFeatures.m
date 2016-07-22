@@ -26,12 +26,12 @@ init_sigma = 1.6;
 % number of intervals per octave
 intvls = 3;
 s = intvls;
-feat_index = 2^(1/s);
+k = 2^(1/s);
 sigma = ones(1,s+3);
 sigma(1) = init_sigma;
-sigma(2) = init_sigma*sqrt(feat_index*feat_index-1);
+sigma(2) = init_sigma*sqrt(k*k-1);
 for i = 3:s+3
-    sigma(i) = sigma(i-1)*feat_index;
+    sigma(i) = sigma(i-1)*k;
 end
 % default cubic method
 input_img = imresize(input_img,2);
