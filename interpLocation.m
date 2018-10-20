@@ -13,7 +13,12 @@ global intvls;
 i = 1;
 while (i <= max_interp_steps)
     dD = deriv3D(intvl,x,y);
-    x_hat = - inv(hessian3D(intvl,x,y))*dD;
+    H = hessian3D(intvl,x,y);
+    [U,S,V] = svd(H);
+    T=S;
+    T(S~=0) = 1./S(S~=0);
+    svd_inv_H = V * T' * U';
+    x_hat = - svd_inv_H*dD;
     if( abs(x_hat(1)) < 0.5 && abs(x_hat(2)) < 0.5 && abs(x_hat(3)) < 0.5)
         break;
     end
